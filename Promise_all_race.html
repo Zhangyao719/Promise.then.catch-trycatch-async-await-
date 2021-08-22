@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const request1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('request1');
+          // reject('request1');
+        }, 500)
+      })
+      const request2 = Promise.resolve('request2')
+      const request3 = Promise.reject('request3')
+       
+
+      /**
+       * Promise.all:
+       * 1. 同时支持多个Promise异步请求
+       *
+       * 2. 成功时返回一个包含所有参数(输入的Promise)请求成功的数据的数组
+       * 里面数据的顺序 就是输入的参数的顺序(无论输入的Promise各自的请求时间的长短)
+       *
+       * 3. 只要任何一个输入的promise请求失败,那整个Promise.all就会立即抛出错误
+       * 并且reject的是第一个抛出的错误信息。
+       */
+      // const pAll = Promise.all([request1, request2, request3])
+      pAll
+        .then((dataArr) => {
+          console.log(dataArr)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
+      /**
+       * Promise.race:
+       * 1. 同时多个Promise参数
+       * 2. 只返回一个先执行完的Promise 成功结果或失败结果(不是按参数的顺序返回的)
+       */
+      Promise.race([request1, /* request2,  */request3])
+        .then((data) => {
+          console.log('success: ', data);
+        })
+        .catch((err) => {
+          console.log('error: ', err);
+        })
+    </script>
+  </body>
+</html>
