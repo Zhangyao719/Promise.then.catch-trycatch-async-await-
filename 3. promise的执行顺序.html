@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      console.log(1)
+      new Promise((resolve, reject) => {
+        console.log(2);
+        resolve(3)
+        reject(4)
+      }).then((data) => {
+        console.log(data);
+      }).catch((error) => {
+        console.log(error);
+      })
+      console.log(5);
+
+      // output: 1 2 5 3
+      /**
+       * (1) 1, 2, 5都是同步执行
+       * (2) resolve和reject只会执行一个(这里走了resolve, reject就不会再执行了)
+       * (3) .then().catch()本身是同步执行, 指定了onResolved, onRejected回调, 用来处理resolve, reject接收到的参数
+       * 但是这两个回调函数传入后, 在内部异步执行
+       * 
+       */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const p = new Promise((resolve, reject) => {
+        // resolve('success')
+        reject('failed')
+      }).then(
+        (data) => {
+          console.log('onResolve1', data);
+        },
+        // (err) => { throw err; } // onRejected回调不写 相当于默认传了这个函数
+      ).then(
+        (data) => {
+          console.log('onResolve2', data);
+        }, 
+        // (err) => { throw err; }
+      ).then(
+        (data) => {
+          console.log('onResolve3', data);
+        },
+        // (err) => { throw err; }
+      ).catch((err) => {
+        console.log('onRejected', err);
+        // 如果想中断promise链:
+        return new Promise(() => {})
+      })
+
+      /**
+       * 总结:
+       * Promise的链式调用, 可以在最后通过.catch指定处理失败的回调
+       * 第一个promise抛出的错误 并不是一下子直接到.catch的:
+       * 而是在每一个.then()中的第二个参数 onRejected位置, 相当于默认传了 (err) => { throw err; } 或 (err) => Promise.reject(err)
+       */
+    </script>
+  </body>
+</html>

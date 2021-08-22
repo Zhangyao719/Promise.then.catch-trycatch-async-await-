@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*       new Promise((resolve, reject) => {
+        resolve(1)
+        // reject(2)
+      })
+        .then(
+          (data) => {
+            console.log('onResolved', data) // → 下面的.then 会执行onResolved回调, data值: undefined
+            // return 11                    // → 下面的.then 会执行onResolved回调, data值: 11
+            // return Promise.resolve(22);  // → 下面的.then 会执行onResolved回调, data值: 22
+            // return Promise.reject(33);   // → 下面的.then 会执行onRejected回调, data值: 33
+            // throw 44                     // → 下面的.then 会执行onRejected回调, data值: 44
+          },
+          (error) => {
+            console.log('onRejected', error)
+            // 如果走这个回调, 结果通上↑
+            // return 11
+            // return Promise.resolve(11);
+            // return Promise.reject(22);
+            // throw 33
+          }
+        )
+        .then(
+          (data) => {
+            console.log('onResolved2', data)
+          },
+          (error) => {
+            console.log('onRejected2', error)
+          }
+        ) */
+
+      /**
+       * Promise.then()链式调用时, 返回的新promise的结果状态是由什么决定的;
+       * 概述: 由上一个.then()指定的回调函数执行的结果决定。
+       * 结论 → 无论上一个promise最终是走onResolved还是onRejected, 只要该回调函数里:
+       *  (1) 如果返回的是一个promise, 新promise的结果就是这个返回的promise的结果;
+       *  (2) 如果抛出异常 新promise变为rejected状态, 走onRejected回调, error值就是抛出的异常;
+       *  (3) 如果返回的是非promise的任意值, 新promise变为resolved状态, 走onResolved回调, data值为return的值;
+       */
+    </script>
+  </body>
+</html>
